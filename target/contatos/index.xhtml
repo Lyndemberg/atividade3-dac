@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Contatos</title>
+    </h:head>
+    <h:body>
+        <center>
+            <h3>Contatos</h3>
+            <h:form>
+                <h:outputLabel>Nome</h:outputLabel>
+                <h:inputText required="true" 
+                             requiredMessage="Preencha o campo do nome"
+                             value="#{controladorContato.contato.nome}"
+                             />
+                <h:outputLabel>Celular</h:outputLabel>
+                <h:inputText required="true" 
+                             requiredMessage="Preencha o campo do celular"
+                             value="#{controladorContato.contato.celular}"
+                             validatorMessage="Celular inválido, tente: (DD) 99999-9999">
+                    <f:validateRegex pattern="^(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})$"/>
+                </h:inputText>
+                <h:commandButton value="Salvar" 
+                                 action="#{controladorContato.cadastrar()}"
+                                 rendered="#{controladorContato.editando == false}"/>
+                <h:commandButton value="Atualizar" 
+                                 action="#{controladorContato.atualizar()}"
+                                 rendered="#{controladorContato.editando == true}"/>
+                <h:messages/>
+            </h:form><br/>
+        
+        <h:form style="width: 50%">
+            <p:dataTable id="tabela" var="contato" value="#{controladorContato.listarTodos()}"  
+                         sortBy="#{contato.nome}" scrollable="true" scrollHeight="400"
+                         emptyMessage="Nenhum contato encontrado com esse nome"
+                         widgetVar="contatosTable"
+                         >
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Busca: " />
+                        <p:inputText id="globalFilter" onkeyup="PF('contatosTable').filter()" 
+                                     style="width:150px" placeholder="Digite o nome"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="Grupo" groupRow="true">
+                    <h:outputText value="#{contato.nome.substring(0,1).toUpperCase()}"/>
+                </p:column>
+                <p:column rendered="false" filterBy="#{contato.nome}" 
+                          headerText="Nome"  filterMatchMode="contains">
+                    <h:outputText value="#{contato.nome}" />
+                </p:column>
+                <p:column headerText="Nome">
+                    <h:outputText value="#{contato.nome}" />
+                </p:column>
+                
+                <p:column headerText="Celular">
+                    <h:outputText value="#{contato.celular}" />
+                </p:column>
+                <p:column headerText="">
+                    <h:commandButton value="EDITAR" 
+                                     action="#{controladorContato.editar(contato)}"/>
+                    <h:commandButton value="EXCLUIR" 
+                                     action="#{controladorContato.excluir(contato)}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        </center>
+    </h:body>
+</html>
+

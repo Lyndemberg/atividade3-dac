@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.ifpb.dac.contatos</groupId>
-    <artifactId>contatos-web</artifactId>
+    <artifactId>contatos-atv3</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>contatos-web</name>
+    <name>contatos-atv3</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -38,9 +38,15 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4.1209.jre7</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>contatos</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
