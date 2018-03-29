@@ -36,6 +36,7 @@ public class ControladorContato implements Serializable{
             editando = false;
             contato = new Contato();
         }
+        
         return "index.xhtml";
         
     }
